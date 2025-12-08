@@ -1,4 +1,4 @@
-# My Implementation of various data structures and algorithms using different programming languages
+# My Implementation of various data structures and algorithms using java. 
 
 ## It is divided into:
 
