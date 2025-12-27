@@ -1,3 +1,5 @@
+package linear-data-stuctures;
+
 public class Array {
     private int count = 0;
     private int[] items;
