@@ -1,3 +1,6 @@
+package  nonlinear;
+
+
 public class Tree {
     private Node root;
     private class  Node {
@@ -16,21 +19,31 @@ public class Tree {
             root = newNode;
             return;
         }
+        if (root.value == value) {
+            return;
+        }
         Node current = root;
-        while (current != null) {
-            if (isGreater(value, current.value)) {
+        while (true) {
+            if (value > current.value) {
+                if (current.rightChild == null) {
+                    current.rightChild = newNode;
+                    break;
+                }
                 current = current.rightChild;
             } else {
+                if (current.leftChild == null) {
+                    current.leftChild = newNode;
+                    break;
+                }
                 current = current.leftChild;
             }
         }
-        current = newNode;
-        System.out.println(current.rightChild);
     }
 
-    public void print() {
+   public void print() {
         print(root);
     }
+
    private void print(Tree.Node root) {
         if (root == null) {
             return;
@@ -40,7 +53,7 @@ public class Tree {
         print(root.rightChild);
     }
 
- public boolean find(int value) {
+   public boolean find(int value) {
         return find(value, root);
     }
 
@@ -51,18 +64,17 @@ public class Tree {
         if (root.value == value) {
             return true;
         }
-        if (isGreater(value, root.value)) {
+        if (value > root.value) {
         return find(value, root.rightChild);
         }
         return find(value, root.leftChild);
     }
 
-    private boolean isGreater(int value, int value2) {
-        return value > value2;
-    }   
-
     private boolean isLeaf(Node node) {
-        return node.leftChild == null && node.rightChild == null;
+        if (node == null) {
+            return true;
+        }
+        return (node.leftChild == null && node.rightChild == null);
     }
 
     private boolean isEmpty() {

@@ -1,3 +1,6 @@
+package linear;
+
+
 public class PriorityQueue {
     private int[] items = new int[10];
     private int count = 0;

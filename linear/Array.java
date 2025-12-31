@@ -1,4 +1,4 @@
-package linear-data-stuctures;
+package linear;
 
 public class Array {
     private int count = 0;
