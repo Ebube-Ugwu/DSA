@@ -13,6 +13,10 @@ public class Tree {
         }
     }
 
+    public Node getRoot() {
+        return root;
+    }
+
     public void insert(int value) {
         Node newNode = new Node(value);
         if (isEmpty()) {
@@ -71,13 +75,62 @@ public class Tree {
     }
 
     private boolean isLeaf(Node node) {
-        if (node == null) {
-            return true;
-        }
-        return (node.leftChild == null && node.rightChild == null);
+        return node.leftChild == null && node.rightChild == null;
     }
 
     private boolean isEmpty() {
         return root == null;
+    }
+
+    public int min() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Tree is empty");
+        }
+        return min(root);
+    }
+
+    private int min(Node root) {
+        if (isLeaf(root)) {
+            return root.value;
+        }
+        var left = root.leftChild == null ? root.value : min(root.leftChild);
+        var right = root.rightChild == null ? root.value : min(root.rightChild);
+
+        return Math.min(Math.min(left, right), root.value);
+    }
+
+    public int height() {
+        if (isEmpty()) {
+            throw new IllegalStateException("Tree is empty");
+        }
+        return height(root);
+    }
+
+    private int height(Node root) {
+        if (isLeaf(root) || root == null) {
+            return 0; // leaf nodes have a height of zero   
+        }
+        var leftHeight = root.leftChild == null ? 0 : height(root.leftChild);
+        var rightHeight = root.rightChild == null ? 0 : height(root.rightChild);
+        
+        return 1 + Math.max(leftHeight, rightHeight);
+    }
+
+    public boolean isEqual(Tree tree) {
+        return isEqual(root, tree.getRoot());
+    }
+
+    private boolean isEqual(Node root, Node otherRoot) {
+        if (root == null && otherRoot == null) {
+            return true;
+        }
+        if (root == null || otherRoot == null) {
+            return false;
+        }
+        if (root.value != otherRoot.value) {
+            return false;
+        }
+        return isEqual(root.leftChild, otherRoot.leftChild)
+            && isEqual(root.rightChild, otherRoot.rightChild);
     }
 }
